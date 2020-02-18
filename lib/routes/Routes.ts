@@ -1,6 +1,5 @@
 import { Request, Response, NextFunction } from "express";
-const _ = require("lodash")
-const path = require("path")
+
 import * as contro from "../controllers/controller";
 
 export class Routes {
