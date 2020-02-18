@@ -1,23 +1,20 @@
-#Typescript
-Install global TypeScript and TypeScript Node
-
-npm install -g typescript ts-node
-
-Then install the dependencies
-
-npm install
-
 
 ## Start the server
 
-Run in development mode
+Install dependencies
 
 ```
-npm run dev
+npm install
 ```
 
-Run in production mode 
+Create build
 
 ```
-npm run prod
+npm run build
+```
+
+Run
+
+```
+npm run start
 ```
