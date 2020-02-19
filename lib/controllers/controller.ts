@@ -27,7 +27,7 @@ export const getContact = (req: Request, res: Response) => {
         // Filter occurances to find same name
         let filteredNames = requestData.filter(e => constructArray.includes(e))
         let unMatchedNames = requestData.filter(e => !constructArray.includes(e))
-        console.log("unMatchedNames", unMatchedNames)
+
         // Get Unique names from filterd names
         filteredNames = _.uniq(filteredNames)
         let occurances = []
