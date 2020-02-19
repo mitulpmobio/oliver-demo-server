@@ -20,7 +20,10 @@ export const getContact = (req: Request, res: Response) => {
         let removeSpacePhase = await removeLinePhase.replace(/\s\s+/g, " ")
         // Construct array for each key word to find occurances
         let constructArray = removeSpacePhase.split(" ")
-        let sendObj = {}
+        let sendObj = {
+            name: "",
+            count: 0
+        }
         // Filter occurances to find same name
         let filteredNames = requestData.filter(e => constructArray.includes(e))
         // Get Unique names from filterd names
@@ -29,7 +32,8 @@ export const getContact = (req: Request, res: Response) => {
         // Find count from document for filtered names
         _.forEach(filteredNames, function (value) {
             let count = removeSpacePhase.match(new RegExp(value, "g")).length
-            sendObj[value] = count;
+            sendObj.name = value;
+            sendObj.count = count;
             occurances.push([value, count])
         });
         // Sort Occurances in descending order 
