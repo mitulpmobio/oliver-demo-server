@@ -26,9 +26,12 @@ export const getContact = (req: Request, res: Response) => {
         }
         // Filter occurances to find same name
         let filteredNames = requestData.filter(e => constructArray.includes(e))
+        let unMatchedNames = requestData.filter(e => !constructArray.includes(e))
+        console.log("unMatchedNames", unMatchedNames)
         // Get Unique names from filterd names
         filteredNames = _.uniq(filteredNames)
         let occurances = []
+        let unMatchedOccurances = []
         // Find count from document for filtered names
         _.forEach(filteredNames, function (value) {
             let count = removeSpacePhase.match(new RegExp(value, "g")).length
@@ -36,19 +39,26 @@ export const getContact = (req: Request, res: Response) => {
             sendObj.count = count;
             occurances.push([value, count])
         });
+        // unmatched names 
+        _.forEach(unMatchedNames, function (value) {
+            unMatchedOccurances.push([value, 0])
+        });
+
         // Sort Occurances in descending order 
         occurances.sort(function (a, b) {
             return b[1] - a[1]
         });
+        // concat both array matched and un matched names
+        let concatArray = occurances.concat(unMatchedOccurances);
         let stringCon = ""
         // Concate all occurances and create string to send it for text
-        occurances.forEach(function (element) {
+        concatArray.forEach(function (element) {
             stringCon = stringCon + element[0] + ":" + element[1] + "\n"
         })
         if (req.params.name) {
             if (filteredNames.length === 0)
                 sendObj = {
-                    name: requestData[0],
+                    name: "",
                     count: 0
                 }
             res.send(sendObj)
