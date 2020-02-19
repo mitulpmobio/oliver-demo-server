@@ -47,7 +47,10 @@ export const getContact = (req: Request, res: Response) => {
         })
         if (req.params.name) {
             if (filteredNames.length === 0)
-                sendObj[requestData[0]] = 0;
+                sendObj = {
+                    name: requestData[0],
+                    count: 0
+                }
             res.send(sendObj)
         } else {
             if (filteredNames.length === 0)
